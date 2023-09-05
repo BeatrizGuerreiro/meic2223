@@ -1,0 +1,10 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://172.29.106.94:8080
+functions:
+  first-lib:
+    lang: java11
+    handler: ./first-lib
+    image: ghcr.io/beatrizguerreiro/first-lib:latest
+

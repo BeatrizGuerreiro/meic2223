@@ -1,0 +1,10 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://172.29.106.94:8080
+functions:
+  image-lib:
+    lang: java11
+    handler: ./image-lib
+    image: ghcr.io/beatrizguerreiro/image-lib:latest
+

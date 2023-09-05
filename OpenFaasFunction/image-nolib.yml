@@ -1,0 +1,10 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://172.28.153.152:8080
+functions:
+  image-nolib:
+    lang: java11
+    handler: ./image-nolib
+    image: ghcr.io/beatrizguerreiro/image-nolib:latest
+

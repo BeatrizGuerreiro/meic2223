@@ -1,6 +1,8 @@
 package metrics;
 
 import java.io.Serializable;
+import java.time.Instant;
+import java.util.concurrent.TimeUnit;
 
 public class Metric implements Serializable {
 
@@ -24,5 +26,20 @@ public class Metric implements Serializable {
 
     public long getTimestamp() {
         return timestamp;
+    }
+
+    @Override
+    public String toString() {
+        return "Metric:" +
+                "name='" + name + '\'' +
+                ", value=" + value + (name.contains("time") ? "ns"  : "") +
+                ", timestamp=" + getDateFromNano(timestamp) +
+                '\n';
+    }
+
+    private Instant getDateFromNano(long timestamp) {
+        final long seconds = TimeUnit.NANOSECONDS.toSeconds(timestamp);
+        final long nanos = timestamp % 1_000_000_000L;
+        return Instant.ofEpochSecond(seconds, nanos);
     }
 }

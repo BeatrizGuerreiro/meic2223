@@ -20,6 +20,11 @@ public class MetricsController {
         return "Greetings from Spring Boot!";
     }
 
+    @GetMapping("/id")
+    public String getMetricId(@RequestParam String metric, @RequestParam String address) {
+        return service.calculateMetricId(metric, address);
+    }
+
     @PostMapping
     public String postMetric(@RequestBody List<Metric> input)  {
         input.forEach(service::processMetric);

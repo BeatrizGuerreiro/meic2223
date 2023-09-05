@@ -1,0 +1,19 @@
+apply plugin: 'java'
+
+repositories {
+  jcenter()
+  mavenCentral()
+}
+configurations {
+    invoker
+}
+
+dependencies {
+  // Every function needs this dependency to get the Functions Framework API.
+  compileOnly 'com.google.cloud.functions:functions-framework-api:1.1.0'
+  
+  implementation files("libs/FineGrainedMetricsLib-1.0-SNAPSHOT.jar")
+  implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.11'
+  implementation 'com.squareup.okio:okio:3.3.0'
+  implementation 'org.json:json:20230227'
+}

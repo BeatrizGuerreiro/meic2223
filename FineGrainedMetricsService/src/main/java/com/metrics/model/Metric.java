@@ -1,5 +1,8 @@
 package com.metrics.model;
 
+import java.time.Instant;
+import java.util.concurrent.TimeUnit;
+
 public class Metric {
 
     private final String name;
@@ -28,10 +31,16 @@ public class Metric {
 
     @Override
     public String toString() {
-        return "Metric{" +
+        return "Metric:" +
                 "name='" + name + '\'' +
-                ", value=" + value +
-                ", timestamp=" + timestamp +
-                '}';
+                ", value=" + value + (name.contains("time") ? "ns"  : "") +
+                ", timestamp=" + getDateFromNano(timestamp) +
+                '\n';
+    }
+
+    private Instant getDateFromNano(long timestamp) {
+        final long seconds = TimeUnit.NANOSECONDS.toSeconds(timestamp);
+        final long nanos = timestamp % 1_000_000_000L;
+        return Instant.ofEpochSecond(seconds, nanos);
     }
 }

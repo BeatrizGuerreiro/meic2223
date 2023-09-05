@@ -13,23 +13,19 @@ public class MetricsDto {
     @Column(name = "metricName")
     private String bMetricName;
 
-    @Column(name = "functionName")
-    private String cFunctionName;
-
     @Column(name = "envId")
-    private String dEnvId;
+    private String cEnvId;
 
     @Column(name = "value")
-    private long eValue;
+    private long dValue;
 
     @Column(name = "timestamp")
     private long fTimestamp;
 
-    public MetricsDto(String metricName, String functionName, String envId, long value, long timestamp) {
+    public MetricsDto(String metricName, String envId, long value, long timestamp) {
         this.bMetricName = metricName;
-        this.cFunctionName = functionName;
-        this.dEnvId = envId;
-        this.eValue = value;
+        this.cEnvId = envId;
+        this.dValue = value;
         this.fTimestamp = timestamp;
     }
 
@@ -41,16 +37,12 @@ public class MetricsDto {
         return bMetricName;
     }
 
-    public String getFunctionName() {
-        return cFunctionName;
-    }
-
     public String getEnvId() {
-        return dEnvId;
+        return cEnvId;
     }
 
     public long getValue() {
-        return eValue;
+        return dValue;
     }
 
     public long getTimestamp() {
@@ -62,9 +54,8 @@ public class MetricsDto {
         return "MetricsDto{" +
                 "id=" + aId +
                 ", metricName='" + bMetricName + '\'' +
-                ", functionName='" + cFunctionName + '\'' +
-                ", envId='" + dEnvId + '\'' +
-                ", value=" + eValue +
+                ", envId='" + cEnvId + '\'' +
+                ", value=" + dValue +
                 ", timestamp=" + fTimestamp +
                 '}';
     }

@@ -1,0 +1,10 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://172.20.144.155:8080
+functions:
+  first-75metrics:
+    lang: java11
+    handler: ./first-75metrics
+    image: ghcr.io/beatrizguerreiro/first-75metrics:latest
+

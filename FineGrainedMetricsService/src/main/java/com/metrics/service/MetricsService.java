@@ -8,10 +8,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class MetricsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MetricsService.class);
+
+    private static final String SEPARATOR = ":";
+
+    private final List<String> idsList = new ArrayList<>();
 
     @Autowired
     private MetricRepository repository;
@@ -23,7 +30,21 @@ public class MetricsService {
     public void processMetric(Metric metric) {
         final String name = metric.getName();
         final String[] nameParts = name.split(":");
-        final MetricsDto dto = new MetricsDto(nameParts[0], nameParts[1], nameParts[2].substring(1), metric.getValue(), metric.getTimestamp());
+        final String localAddress = nameParts[1].substring(1);
+
+        final MetricsDto dto = new MetricsDto(nameParts[0], localAddress, metric.getValue(), metric.getTimestamp());
         repository.save(dto);
+        idsList.removeIf(id -> id.contains(localAddress));
+    }
+
+    public String calculateMetricId(String metricName, String localAddress) {
+        String uniqueId = metricName + SEPARATOR + localAddress;
+        int index = 1;
+        while(idsList.contains(uniqueId)) {
+            uniqueId = metricName + index + SEPARATOR + localAddress;
+            index++;
+        }
+        idsList.add(uniqueId);
+        return uniqueId;
     }
 }
